@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ujian Pola Fikiran (Mindset Quiz Digital) - Carol S. Dweck</title>
+    <title>Ujian Pola Fikiran Warga Pendidik - Carol S. Dweck</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,13 +14,13 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#074e67',
+                            900: '#0c4a60',
                         }
                     },
                     fontFamily: {
@@ -40,21 +40,19 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom scrollbar & glassmorphism */
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.9);
         }
         .dark .glass-card {
-            background: rgba(30, 41, 59, 0.85);
+            background: rgba(15, 23, 42, 0.88);
             border: 1px solid rgba(51, 65, 85, 0.8);
         }
 
-        /* Option button transitions */
         .opt-btn {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -65,40 +63,46 @@
             transform: translateY(0);
         }
 
-        /* Print optimization */
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; color: black !important; padding: 0 !important; }
-            .print-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; page-break-inside: avoid; }
-            .page-break { page-break-before: always; }
-        }
-
-        /* Progress ring stroke animation */
         .ring-circle {
             transition: stroke-dashoffset 1s ease-in-out;
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
         }
+
+        /* Print formatting */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; padding: 0 !important; font-size: 11pt; }
+            .print-only { display: block !important; }
+            .print-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+        }
+        .print-only { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- TOP NAVIGATION HEADER -->
     <header class="sticky top-0 z-40 w-full glass-card border-b border-slate-200 dark:border-slate-800 shadow-sm no-print">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-            <!-- Logo & Title -->
-            <div class="flex items-center gap-3">
+            <!-- Logo & Main Title -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showView('intro')">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
-                    <i data-lucide="brain" class="w-6 h-6"></i>
+                    <i data-lucide="graduation-cap" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">MINDSET QUIZ</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Ujian Pola Fikiran • Prof. Carol S. Dweck</p>
+                    <h1 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-tight">MINDSET PENDIDIK</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Ujian Pola Fikiran Warga Pendidik • Prof. Carol S. Dweck</p>
                 </div>
             </div>
 
-            <!-- Controls (Lang & Theme) -->
+            <!-- Controls (Language, Coordinator, Theme) -->
             <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Coordinator Button -->
+                <button onclick="showView('coordinator')" class="px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900 text-xs font-bold border border-indigo-200 dark:border-indigo-800 transition flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
+                    <span id="nav-coord-btn">Mod Penyelaras</span>
+                </button>
+
                 <!-- Language Selector -->
                 <div class="inline-flex rounded-lg p-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
                     <button onclick="setLanguage('bm')" id="lang-bm" class="px-2.5 py-1 rounded-md transition-all">BM</button>
@@ -106,8 +110,8 @@
                     <button onclick="setLanguage('both')" id="lang-both" class="px-2.5 py-1 rounded-md transition-all">Dwi</button>
                 </div>
 
-                <!-- Theme Toggle -->
-                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="Tukar Tema">
                     <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
                     <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
                 </button>
@@ -115,84 +119,80 @@
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10 no-print">
 
-        <!-- VIEW 1: INTRO / HERO SECTION -->
         <section id="view-intro" class="space-y-6">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-900 via-brand-800 to-indigo-900 text-white p-6 sm:p-10 shadow-xl">
-                <!-- Background decorative elements -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-900 via-brand-800 to-indigo-950 text-white p-6 sm:p-10 shadow-xl">
                 <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="absolute right-1/3 top-0 w-40 h-40 bg-indigo-500/20 rounded-full blur-xl pointer-events-none"></div>
 
                 <div class="relative z-10 max-w-2xl space-y-4">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md text-brand-100 border border-white/10">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-brand-100 border border-white/10">
                         <i data-lucide="sparkles" class="w-3.5 h-3.5 text-yellow-300"></i>
-                        <span>Ujian Psikologi Stanford</span>
+                        <span>Instrumen Refleksi Kendiri Warga Pendidik</span>
                     </span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight" id="hero-title">
-                        Ketahui Tahap Pola Fikiran (Mindset) Anda
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-tight" id="hero-title">
+                        Ujian Pola Fikiran (Mindset) Warga Pendidik
                     </h2>
                     <p class="text-sm sm:text-base text-brand-100/90 leading-relaxed" id="hero-desc">
-                        Adakah anda percaya kecerdasan dan bakat boleh dibangunkan melalui usaha, atau ia kekal sejak lahir? Ujian ini mengandungi 20 soalan refleksi berasaskan kajian Dr. Carol S. Dweck.
+                        Adakah anda percaya kebolehan mengajar, kepimpinan pedagogi, dan potensi murid boleh terus berkembang melalui usaha serta strategi, atau ia bersifat tetap? Sila jawab 20 soalan ini secara jujur untuk analisis profil anda.
                     </p>
 
-                    <div class="pt-2 flex flex-wrap gap-4 text-xs sm:text-sm text-brand-100">
+                    <div class="pt-2 flex flex-wrap gap-4 text-xs sm:text-sm text-brand-100 font-medium">
                         <div class="flex items-center gap-1.5">
                             <i data-lucide="clock" class="w-4 h-4 text-brand-300"></i>
-                            <span>3–5 Minit Masa Diperlukan</span>
+                            <span>Masa: 3–5 Minit</span>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <i data-lucide="file-text" class="w-4 h-4 text-brand-300"></i>
-                            <span>20 Soalan Ringkas</span>
+                            <i data-lucide="check-square" class="w-4 h-4 text-brand-300"></i>
+                            <span>20 Soalan Refleksi</span>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <i data-lucide="shield-check" class="w-4 h-4 text-brand-300"></i>
-                            <span>Laporan & Petua Percuma</span>
+                            <i data-lucide="cloud-upload" class="w-4 h-4 text-brand-300"></i>
+                            <span>Integrasi Google Sheets Sekolah</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- User Info Card before start -->
-            <div class="glass-card rounded-2xl p-6 shadow-sm space-y-4">
+            <!-- Profile Entry Card (ONLY Teacher Name) -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm space-y-5">
                 <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <i data-lucide="user" class="w-5 h-5 text-brand-600"></i>
-                    <span id="label-user-info">Maklumat Peserta (Pilihan)</span>
+                    <i data-lucide="user-check" class="w-5 h-5 text-brand-600"></i>
+                    <span id="label-user-info">Maklumat Guru</span>
                 </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1" id="lbl-name">Nama Peserta / Name</label>
-                        <input type="text" id="user-name" placeholder="cth: Ahmad Razali" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1" id="lbl-dept">Jabatan / Syarikat / Kelas</label>
-                        <input type="text" id="user-dept" placeholder="cth: Sumber Manusia / Tingkatan 5" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5" id="lbl-name">
+                        Nama Guru <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="user-name" placeholder="Contoh: Cikgu Ahmad Bin Razali" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-900 dark:text-white">
+                        <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
                     </div>
                 </div>
 
                 <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 dark:border-slate-800">
-                    <div class="text-xs text-slate-500 dark:text-slate-400">
-                        <span id="lbl-mode-select">Pilih Mod Jawapan:</span>
+                    <div class="text-xs text-slate-600 dark:text-slate-400">
+                        <span id="lbl-mode-select" class="font-semibold">Mod Menjawab:</span>
                         <div class="inline-flex ml-2 rounded-lg p-0.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                            <button onclick="setQuizMode('wizard')" id="mode-wizard-btn" class="px-2.5 py-1 text-xs font-semibold rounded-md">Langkah demi Langkah</button>
+                            <button onclick="setQuizMode('wizard')" id="mode-wizard-btn" class="px-2.5 py-1 text-xs font-semibold rounded-md">Mod Wizard (1 Soalan)</button>
                             <button onclick="setQuizMode('list')" id="mode-list-btn" class="px-2.5 py-1 text-xs font-semibold rounded-md">Senarai Penuh</button>
                         </div>
                     </div>
 
                     <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all flex items-center justify-center gap-2 group">
-                        <span id="btn-start-text">Mula Ujian Sekarang</span>
+                        <span id="btn-start-text">Mula Soal Selidik</span>
                         <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- VIEW 2: ACTIVE QUIZ VIEW -->
         <section id="view-quiz" class="hidden space-y-6">
-            
-            <!-- Sticky Top Progress & Controller -->
+            <!-- Progress Controller Header -->
             <div class="glass-card rounded-2xl p-4 shadow-sm sticky top-20 z-30 space-y-3">
-                <div class="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-300">
+                <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
                     <span id="quiz-progress-text">Kemajuan: 0 daripada 20 Diselesaikan</span>
                     <span id="quiz-percent-text" class="text-brand-600 dark:text-brand-400 font-extrabold">0%</span>
                 </div>
@@ -202,15 +202,15 @@
                     <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-brand-500 to-indigo-600 rounded-full transition-all duration-300 w-0"></div>
                 </div>
 
-                <!-- Mode Switcher & Quick Navigation Bar -->
+                <!-- Mode Switcher & Quick Dot Navigation -->
                 <div class="flex items-center justify-between pt-1 text-xs">
                     <button onclick="toggleQuizViewMode()" class="text-brand-600 dark:text-brand-400 font-semibold hover:underline flex items-center gap-1">
                         <i data-lucide="layout" class="w-3.5 h-3.5"></i>
-                        <span id="lbl-toggle-mode">Tukar Mod Pandangan</span>
+                        <span id="lbl-toggle-mode">Tukar Pandangan</span>
                     </button>
 
                     <div id="quick-dots" class="hidden sm:flex items-center gap-1 overflow-x-auto max-w-xs py-1">
-                        <!-- 20 mini dot indicators generated by JS -->
+                        <!-- 20 Quick dots generated by JS -->
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@
                         <span id="wiz-q-num" class="px-3 py-1 rounded-full text-xs font-extrabold bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300">
                             Soalan 1 / 20
                         </span>
-                        <span id="wiz-q-badge" class="text-xs font-semibold text-slate-400"></span>
+                        <span id="wiz-q-type" class="text-xs font-semibold text-slate-400"></span>
                     </div>
 
                     <div class="space-y-2 mb-6">
@@ -255,49 +255,29 @@
                 <!-- 20 Question Cards rendered by JS -->
             </div>
 
-            <!-- Submit Action Container -->
+            <!-- Submit Section -->
             <div id="submit-section" class="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                     <i data-lucide="info" class="w-4 h-4 text-brand-500"></i>
-                    <span id="lbl-must-complete">Sila pastikan semua 20 soalan telah dijawab untuk melihat keputusan.</span>
+                    <span id="lbl-must-complete">Sila pastikan semua 20 soalan telah dijawab sebelum menghantar.</span>
                 </div>
 
                 <button onclick="calculateAndShowResults()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold shadow-lg shadow-teal-500/20 hover:shadow-teal-500/35 transition-all flex items-center justify-center gap-2">
                     <i data-lucide="check-circle" class="w-5 h-5"></i>
-                    <span id="btn-submit-text">Hantar & Lihat Keputusan</span>
+                    <span id="btn-submit-text">Hantar & Lihat Analisis</span>
                 </button>
             </div>
         </section>
 
-        <!-- VIEW 3: RESULTS DASHBOARD -->
         <section id="view-results" class="hidden space-y-8">
-            
-            <!-- Result Header Banner / Print Masthead -->
+            <!-- Results Banner Header -->
             <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-lg border-t-8 border-t-brand-600 space-y-6">
                 
-                <!-- Print Header (Visible only when printing) -->
-                <div class="hidden print:block border-b border-slate-300 pb-4 mb-4">
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <h1 class="text-2xl font-black text-slate-900">LAPORAN UJIAN POLA FIKIRAN (MINDSET QUIZ)</h1>
-                            <p class="text-xs text-slate-600">Berdasarkan Penyelidikan Prof. Carol S. Dweck (Stanford University)</p>
-                        </div>
-                        <div class="text-right text-xs text-slate-500">
-                            <p id="print-user-name">Nama: -</p>
-                            <p id="print-user-dept">Jabatan: -</p>
-                            <p id="print-date">Tarikh: -</p>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                    
-                    <!-- Score Gauge & Circle -->
+                    <!-- Gauge Score SVG -->
                     <div class="relative flex flex-col items-center justify-center">
                         <svg class="w-44 h-44 sm:w-48 sm:h-48" viewBox="0 0 120 120">
-                            <!-- Background Track -->
                             <circle cx="60" cy="60" r="50" class="stroke-slate-200 dark:stroke-slate-800" stroke-width="10" fill="transparent" />
-                            <!-- Progress Ring -->
                             <circle id="score-ring" cx="60" cy="60" r="50" class="ring-circle stroke-brand-600" stroke-width="10" stroke-linecap="round" fill="transparent" stroke-dasharray="314.15" stroke-dashoffset="314.15" />
                         </svg>
                         
@@ -307,39 +287,47 @@
                         </div>
                     </div>
 
-                    <!-- Category & Description -->
+                    <!-- Category Title & Description -->
                     <div class="flex-1 space-y-3 text-center md:text-left">
                         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm" id="badge-category">
-                            <!-- Category Badge rendered dynamically -->
+                            <!-- Category Badge -->
                         </div>
 
-                        <h2 id="result-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white"></h2>
+                        <h2 id="result-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight"></h2>
                         <p id="result-desc" class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed"></p>
 
-                        <!-- User Meta readout in printable view -->
-                        <div id="user-readout-box" class="pt-2 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap gap-4 justify-center md:justify-start">
-                            <span><strong id="lbl-res-name">Peserta:</strong> <span id="out-name" class="font-semibold text-slate-800 dark:text-slate-200">-</span></span>
-                            <span><strong id="lbl-res-dept">Unit/Jabatan:</strong> <span id="out-dept" class="font-semibold text-slate-800 dark:text-slate-200">-</span></span>
+                        <div class="pt-2 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap gap-4 justify-center md:justify-start">
+                            <span><strong id="lbl-res-name">Nama Guru:</strong> <span id="out-name" class="font-bold text-slate-800 dark:text-slate-200">-</span></span>
                             <span><strong id="lbl-res-date">Tarikh:</strong> <span id="out-date" class="font-semibold text-slate-800 dark:text-slate-200">-</span></span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Google Sheets Sync Status Card -->
+                <div id="sync-status-card" class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 flex items-center justify-between gap-3 text-xs">
+                    <div class="flex items-center gap-2.5">
+                        <div id="sync-spinner" class="animate-spin w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full"></div>
+                        <i id="sync-check" data-lucide="check-circle" class="w-4 h-4 text-emerald-600 hidden"></i>
+                        <span id="sync-status-text" class="font-bold text-amber-900 dark:text-amber-200">Menghantar data ke Google Sheets...</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400">Google Script Integration</span>
+                </div>
             </div>
 
-            <!-- 3-DOMAIN BREAKDOWN ANALYSIS -->
+            <!-- Domain Breakdown Analysis -->
             <div class="space-y-4">
                 <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <i data-lucide="bar-chart-3" class="w-5 h-5 text-brand-600"></i>
-                    <span id="lbl-domain-analysis">Analisis Teras Mengikut Dimensi</span>
+                    <span id="lbl-domain-analysis">Analisis Mengikut Dimensi Pendidik</span>
                 </h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Domain 1: Kecerdasan & Kebolehan -->
+                    <!-- Domain 1: Kebolehan & Kecerdasan -->
                     <div class="glass-card rounded-2xl p-5 space-y-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
-                                <i data-lucide="cpu" class="w-4 h-4 text-brand-500"></i>
-                                <span id="d1-title">Kecerdasan & Kebolehan</span>
+                                <i data-lucide="brain-circuit" class="w-4 h-4 text-brand-500"></i>
+                                <span>Kecerdasan & Bakat</span>
                             </div>
                             <span id="d1-score" class="text-xs font-black px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900 text-brand-700 dark:text-brand-300">0/15</span>
                         </div>
@@ -349,12 +337,12 @@
                         <p id="d1-desc" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed"></p>
                     </div>
 
-                    <!-- Domain 2: Personaliti & Kebolehan Berubah -->
+                    <!-- Domain 2: Personaliti Guru -->
                     <div class="glass-card rounded-2xl p-5 space-y-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
                                 <i data-lucide="user-check" class="w-4 h-4 text-indigo-500"></i>
-                                <span id="d2-title">Personaliti & Karakter</span>
+                                <span>Personaliti & Karakter</span>
                             </div>
                             <span id="d2-score" class="text-xs font-black px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300">0/18</span>
                         </div>
@@ -364,12 +352,12 @@
                         <p id="d2-desc" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed"></p>
                     </div>
 
-                    <!-- Domain 3: Usaha, Cabaran & Maklum Balas -->
+                    <!-- Domain 3: Usaha & Maklum Balas Pedagogi -->
                     <div class="glass-card rounded-2xl p-5 space-y-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
                                 <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
-                                <span id="d3-title">Usaha & Maklum Balas</span>
+                                <span>Usaha & Maklum Balas</span>
                             </div>
                             <span id="d3-score" class="text-xs font-black px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300">0/27</span>
                         </div>
@@ -381,38 +369,43 @@
                 </div>
             </div>
 
-            <!-- ACTIONABLE RECOMMENDATIONS -->
+            <!-- Recommendations for Educators -->
             <div class="glass-card rounded-2xl p-6 space-y-4">
                 <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <i data-lucide="compass" class="w-5 h-5 text-emerald-600"></i>
-                    <span id="lbl-rec-title">Petua Pembangunan Diri & Tindakan Tindakan (Action Plan)</span>
+                    <span id="lbl-rec-title">Saranan Pembangunan Profesional Guru</span>
                 </h3>
 
                 <div id="rec-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                    <!-- Action tips rendered dynamically -->
+                    <!-- Action tips generated by JS -->
                 </div>
             </div>
 
-            <!-- REVIEW ANSWERS EXPANDABLE -->
-            <div class="glass-card rounded-2xl p-6 space-y-4 no-print">
+            <!-- Review Answers Collapsible -->
+            <div class="glass-card rounded-2xl p-6 space-y-4">
                 <button onclick="toggleReviewSection()" class="w-full flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm">
                     <span class="flex items-center gap-2">
                         <i data-lucide="list-checks" class="w-5 h-5 text-brand-600"></i>
-                        <span id="lbl-review-title">Semak Semula Jawapan Anda (20 Soalan)</span>
+                        <span id="lbl-review-title">Semak Semula Jawapan (20 Soalan)</span>
                     </span>
                     <i id="review-chevron" data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
                 </button>
 
                 <div id="review-content" class="hidden pt-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
-                    <!-- Summary table rendered by JS -->
+                    <!-- Review table -->
                 </div>
             </div>
 
-            <!-- ACTION BUTTONS (PRINT / RETAKE) -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 no-print">
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
                 <button onclick="window.print()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
                     <i data-lucide="printer" class="w-4 h-4"></i>
-                    <span id="btn-print-text">Cetak / Simpan PDF</span>
+                    <span id="btn-print-text">Cetak Keputusan Saya</span>
+                </button>
+
+                <button onclick="showView('coordinator')" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                    <span>Mod Penyelaras Sekolah</span>
                 </button>
 
                 <button onclick="resetQuiz()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 font-bold text-sm transition flex items-center justify-center gap-2">
@@ -420,175 +413,418 @@
                     <span id="btn-reset-text">Ulang Semula Ujian</span>
                 </button>
             </div>
+        </section>
 
+        <section id="view-coordinator" class="hidden space-y-6">
+            <!-- Coordinator Header -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm border-l-4 border-l-indigo-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 mb-2">
+                        <i data-lucide="shield" class="w-3.5 h-3.5"></i> Mod Penyelaras Sekolah
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Papan Pemuka & Analisis Sekolah</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Urus rekod guru, pantau taburan pola fikiran, dan cetak laporan rasmi sekolah.</p>
+                </div>
+
+                <button onclick="printOfficialReport()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Cetak Laporan Rasmi (PDF/Kertas)</span>
+                </button>
+            </div>
+
+            <!-- Summary Statistics Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card rounded-2xl p-4 space-y-1">
+                    <p class="text-xs font-semibold text-slate-500">Jumlah Guru</p>
+                    <p id="stat-total" class="text-2xl font-black text-slate-900 dark:text-white">0</p>
+                    <p class="text-[10px] text-slate-400">Responden berdaftar</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 space-y-1 border-b-2 border-b-emerald-500">
+                    <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">% Minda Pertumbuhan</p>
+                    <p id="stat-growth-pct" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">0%</p>
+                    <p id="stat-growth-count" class="text-[10px] text-slate-400">0 guru (Skor >= 34)</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 space-y-1 border-b-2 border-b-amber-500">
+                    <p class="text-xs font-semibold text-amber-600 dark:text-amber-400">% Minda Tetap</p>
+                    <p id="stat-fixed-pct" class="text-2xl font-black text-amber-600 dark:text-amber-400">0%</p>
+                    <p id="stat-fixed-count" class="text-[10px] text-slate-400">0 guru (Skor < 34)</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 space-y-1 border-b-2 border-b-brand-500">
+                    <p class="text-xs font-semibold text-brand-600 dark:text-brand-400">Purata Skor</p>
+                    <p id="stat-avg" class="text-2xl font-black text-brand-600 dark:text-brand-400">0 / 60</p>
+                    <p class="text-[10px] text-slate-400">Purata keseluruhan</p>
+                </div>
+            </div>
+
+            <!-- Breakdown Bar Visualization -->
+            <div class="glass-card rounded-2xl p-5 space-y-3">
+                <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Taburan Kategori Minda Guru</h4>
+                <div class="w-full h-4 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                    <div id="bar-cat-1" class="bg-emerald-500 h-full transition-all" style="width: 0%" title="Minda Pertumbuhan Kukuh"></div>
+                    <div id="bar-cat-2" class="bg-blue-500 h-full transition-all" style="width: 0%" title="Pertumbuhan + Tetap"></div>
+                    <div id="bar-cat-3" class="bg-amber-500 h-full transition-all" style="width: 0%" title="Tetap + Pertumbuhan"></div>
+                    <div id="bar-cat-4" class="bg-rose-500 h-full transition-all" style="width: 0%" title="Minda Tetap Kukuh"></div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] pt-1">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> MP Kukuh (45-60)</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> MP + Tetap (34-44)</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> MT + Pertumbuhan (21-33)</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> MT Kukuh (0-20)</span>
+                </div>
+            </div>
+
+            <!-- Management Toolbar & Search -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="relative w-full sm:w-72">
+                    <input type="text" id="coord-search" oninput="renderCoordTable()" placeholder="Cari nama guru..." class="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="addSampleData()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1">
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Demo Data
+                    </button>
+                    <button onclick="exportDataJSON()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i> Eksport JSON
+                    </button>
+                    <button onclick="exportDataCSV()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1">
+                        <i data-lucide="file-spread-sheet" class="w-3.5 h-3.5"></i> Eksport CSV
+                    </button>
+                    <label class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-300 cursor-pointer transition flex items-center gap-1">
+                        <i data-lucide="upload" class="w-3.5 h-3.5"></i> Import JSON/CSV
+                        <input type="file" id="import-file-input" onchange="importDataFile(event)" accept=".json,.csv" class="hidden">
+                    </label>
+                    <button onclick="confirmClearData()" class="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 text-xs font-semibold text-rose-600 dark:text-rose-300 transition flex items-center gap-1">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Padam Semua
+                    </button>
+                </div>
+            </div>
+
+            <!-- Teachers Data Table -->
+            <div class="glass-card rounded-2xl overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
+                                <th class="p-3">#</th>
+                                <th class="p-3">Nama Guru</th>
+                                <th class="p-3 text-center">Skor (0-60)</th>
+                                <th class="p-3">Kategori Pola Fikiran</th>
+                                <th class="p-3">Tarikh Refleksi</th>
+                                <th class="p-3 text-center">Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coord-table-body" class="divide-y divide-slate-200 dark:divide-slate-800">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
 
     </main>
 
+    <section id="official-report-print" class="print-only max-w-4xl mx-auto p-6 bg-white text-slate-900 font-sans">
+        <!-- Report Header -->
+        <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-start">
+            <div>
+                <h1 class="text-xl font-black uppercase tracking-tight text-slate-900">LAPORAN ANALISIS POLA FIKIRAN (MINDSET) WARGA PENDIDIK</h1>
+                <p class="text-xs text-slate-600 font-semibold">Instrumen Refleksi Kendiri Berdasarkan Penyelidikan Prof. Carol S. Dweck (Stanford University)</p>
+            </div>
+            <div class="text-right text-xs">
+                <p><strong>Tarikh Cetakan:</strong> <span id="rpt-print-date"></span></p>
+                <p><strong>Modul:</strong> Pentaksiran Sekolah</p>
+            </div>
+        </div>
+
+        <!-- School & Coordinator Info Header -->
+        <div class="grid grid-cols-2 gap-4 text-xs mb-6 p-3 border border-slate-300 rounded-lg bg-slate-50">
+            <div>
+                <p><strong>Nama Sekolah / Institusi:</strong> <span id="rpt-school-name">Kementerian Pendidikan Malaysia</span></p>
+                <p><strong>Penyelaras Program:</strong> <span id="rpt-coordinator-name">Penyelaras LDP / Pembangunan Guru</span></p>
+            </div>
+            <div>
+                <p><strong>Jumlah Guru Terlibat:</strong> <span id="rpt-total-teachers">0</span> orang</p>
+                <p><strong>Status Integrasi Data:</strong> Disimpan & Dihantar ke Google Sheets</p>
+            </div>
+        </div>
+
+        <!-- Executive Summary Stats Table -->
+        <div class="mb-6">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2 border-b border-slate-300 pb-1">1. Ringkasan Eksekutif Pola Fikiran</h3>
+            <table class="w-full text-xs border border-slate-300 text-center">
+                <thead class="bg-slate-100 font-bold border-b border-slate-300">
+                    <tr>
+                        <th class="p-2 border-r">Petik/Kategori</th>
+                        <th class="p-2 border-r">Julat Skor</th>
+                        <th class="p-2 border-r">Bil. Guru</th>
+                        <th class="p-2">Peratusan (%)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-300">
+                    <tr>
+                        <td class="p-2 border-r text-left font-semibold text-emerald-800">Minda Pertumbuhan Kukuh</td>
+                        <td class="p-2 border-r">45 - 60</td>
+                        <td id="rpt-c1-count" class="p-2 border-r font-bold">0</td>
+                        <td id="rpt-c1-pct" class="p-2 font-bold">0%</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-r text-left font-semibold text-blue-800">Minda Pertumbuhan + Kecenderungan Tetap</td>
+                        <td class="p-2 border-r">34 - 44</td>
+                        <td id="rpt-c2-count" class="p-2 border-r font-bold">0</td>
+                        <td id="rpt-c2-pct" class="p-2 font-bold">0%</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-r text-left font-semibold text-amber-800">Minda Tetap + Kecenderungan Pertumbuhan</td>
+                        <td class="p-2 border-r">21 - 33</td>
+                        <td id="rpt-c3-count" class="p-2 border-r font-bold">0</td>
+                        <td id="rpt-c3-pct" class="p-2 font-bold">0%</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-r text-left font-semibold text-rose-800">Minda Tetap Kukuh</td>
+                        <td class="p-2 border-r">0 - 20</td>
+                        <td id="rpt-c4-count" class="p-2 border-r font-bold">0</td>
+                        <td id="rpt-c4-pct" class="p-2 font-bold">0%</td>
+                    </tr>
+                    <tr class="bg-slate-100 font-bold border-t border-slate-400">
+                        <td class="p-2 border-r text-left" colspan="2">JUMLAH KESELURUHAN</td>
+                        <td id="rpt-total-sum" class="p-2 border-r">0</td>
+                        <td class="p-2">100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Detailed List of Teachers Table -->
+        <div class="mb-8">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2 border-b border-slate-300 pb-1">2. Senarai Rekod Pentaksiran Guru</h3>
+            <table class="w-full text-xs border border-slate-300 text-left">
+                <thead class="bg-slate-100 font-bold border-b border-slate-300">
+                    <tr>
+                        <th class="p-2 border-r w-8 text-center">No.</th>
+                        <th class="p-2 border-r">Nama Guru</th>
+                        <th class="p-2 border-r text-center w-20">Skor (60)</th>
+                        <th class="p-2 border-r">Kategori Pola Fikiran</th>
+                        <th class="p-2 w-28 text-center">Tarikh</th>
+                    </tr>
+                </thead>
+                <tbody id="rpt-teachers-tbody" class="divide-y divide-slate-300">
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Official Signature Section -->
+        <div class="pt-8 page-break-inside-avoid">
+            <div class="grid grid-cols-2 gap-12 text-xs">
+                <div class="space-y-12">
+                    <div>
+                        <p>Disediakan Oleh:</p>
+                        <div class="h-16"></div>
+                        <p class="font-bold border-b border-slate-400 pb-0.5 inline-block w-48">( PENYELARAS LDP / GURU )</p>
+                        <p class="text-[10px] text-slate-500">Tarikh: .......................................</p>
+                    </div>
+                </div>
+
+                <div class="space-y-12">
+                    <div>
+                        <p>Disahkan & Disemak Oleh:</p>
+                        <div class="h-16"></div>
+                        <p class="font-bold border-b border-slate-400 pb-0.5 inline-block w-56">( PENGETUA / GURU BESAR )</p>
+                        <p class="text-[10px] text-slate-500">Cap Rasmi Sekolah & Tarikh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Modal Dialog (Replaces native alerts) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center gap-3 text-slate-900 dark:text-white">
+                <div id="modal-icon-box" class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+                    <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                </div>
+                <h3 id="modal-title" class="font-bold text-base">Pengesahan</h3>
+            </div>
+            <p id="modal-message" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+
+            <div id="modal-actions" class="flex items-center justify-end gap-2 pt-2">
+                <!-- Action buttons inserted dynamically -->
+            </div>
+        </div>
+    </div>
+
     <script>
-        // 20 QUESTIONS DATASET WITH BM & EN TEXTS AND SCORING TYPE
+        // MANDATORY GOOGLE SCRIPT EXEC URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwpiBoeNwzp89JN2hVE895etn8ZNSb5Y8XCK2AuAl_rFVIXJ0rw7d99TlNHMbW_ghhz/exec';
+
+        // 20 QUESTIONS DATASET FOR EDUCATORS
         const QUESTIONS = [
             {
                 id: 1,
                 type: 'fixed',
-                domain: 'intelligence', // 1: intelligence, 2: personality, 3: effort/feedback
-                bm: "Kecerdasan adalah sesuatu yang sangat asas mengenai diri anda sahaja dan tidak boleh berubah dengan banyak.",
-                en: "Your intelligence is something very basic about you that you can't change very much."
+                domain: 'intelligence',
+                bm: "Kebolehan mengajar dan kepintaran pedagogi seseorang guru adalah perkara asas yang tidak boleh berubah dengan banyak.",
+                en: "A teacher's teaching ability and pedagogical intelligence are fundamental traits that cannot be changed much."
             },
             {
                 id: 2,
                 type: 'growth',
                 domain: 'intelligence',
-                bm: "Tidak kira berapa banyak kepintaran yang dimiliki, anda mampu berubah walaupun sedikit.",
-                en: "No matter how much intelligence you have, you can always change it quite a bit."
+                bm: "Tidak kira berapa banyak kebolehan mengajar yang anda miliki sekarang, anda sentiasa boleh meningkatkannya dengan ketara.",
+                en: "No matter how much teaching ability you currently have, you can always improve it substantially."
             },
             {
                 id: 3,
                 type: 'growth',
                 domain: 'intelligence',
-                bm: "Kepintaran yang anda miliki mampu mengubah anda dengan ketara.",
-                en: "You can always substantially change how intelligent you are."
+                bm: "Semua murid mampu mencapai kejayaan akademik yang cemerlang jika diberikan strategi pembelajaran dan bimbingan yang betul.",
+                en: "All students are capable of achieving high academic success if provided with the right learning strategies and guidance."
             },
             {
                 id: 4,
                 type: 'fixed',
                 domain: 'personality',
-                bm: "Anda jenis orang yang tertentu dan tidak banyak boleh dilakukan untuk benar-benar berubah.",
-                en: "You are a certain kind of person, and there is not much that can be done to really change that."
+                bm: "Anda adalah jenis pendidik yang tertentu, dan tidak banyak yang boleh dilakukan untuk mengubah personaliti mengajar anda.",
+                en: "You are a certain type of educator, and not much can be done to really change your teaching personality."
             },
             {
                 id: 5,
                 type: 'growth',
                 domain: 'personality',
-                bm: "Anda sentiasa boleh mengubah perkara-perkara asas walaupun anda jenis orang tertentu.",
-                en: "You can always change basic things about the kind of person you are."
+                bm: "Anda sentiasa boleh mengubah cara anda berinteraksi dan mengurus perwatakan murid di dalam bilik darjah.",
+                en: "You can always refine how you interact with and manage student behaviors in the classroom."
             },
             {
                 id: 6,
                 type: 'growth',
                 domain: 'effort',
-                bm: "Bakat muzik boleh dipelajari oleh sesiapa sahaja.",
-                en: "Music talent can be learned by anyone."
+                bm: "Kemahiran mengurus kelas dan kawalan disiplin boleh dipelajari dan dikuasai oleh mana-mana guru melalui latihan.",
+                en: "Classroom management and discipline control can be learned and mastered by any teacher through practice."
             },
             {
                 id: 7,
                 type: 'fixed',
                 domain: 'effort',
-                bm: "Hanya beberapa orang sahaja yang benar-benar bagus dalam sukan, maka anda perlu 'bakat semula jadi' untuk termasuk dalam golongan tersebut.",
-                en: "Only a few people will be truly good at sports - you have to be 'born with it'."
+                bm: "Hanya beberapa guru sahaja yang dilahirkan sebagai 'pakar pencetus motivasi' murid; usaha tidak banyak membantu jika tiada bakat semula jadi.",
+                en: "Only a few teachers are born 'motivational experts'; effort doesn't help much without natural talent."
             },
             {
                 id: 8,
                 type: 'fixed',
                 domain: 'effort',
-                bm: "Matematik adalah lebih mudah untuk belajar jika anda lelaki atau mungkin datang daripada budaya yang menghargai matematik.",
-                en: "Math is much easier to learn if you are male or maybe come from a culture who values math."
+                bm: "Sesetengah murid sememangnya 'tidak boleh diajar' dalam subjek sukar seperti Matematik atau Sains.",
+                en: "Some students are inherently 'unteachable' in tough subjects like Math or Science."
             },
             {
                 id: 9,
                 type: 'growth',
                 domain: 'effort',
-                bm: "Anda akan menjadi lebih baik jika anda bekerja lebih kuat.",
-                en: "The harder you work at something, the better you will be at it."
+                bm: "Semakin banyak anda mencuba kaedah pengajaran baharu, semakin efektif anda sebagai seorang pendidik.",
+                en: "The more you experiment with innovative teaching methods, the more effective educator you become."
             },
             {
                 id: 10,
                 type: 'growth',
                 domain: 'personality',
-                bm: "Tidak kira apa jenis tret personaliti yang anda miliki, anda sentiasa boleh berubah dengan ketara.",
-                en: "No matter what kind of person you are, you can always change substantially."
+                bm: "Seorang guru sentiasa boleh membangunkan tahap kesabaran dan empati yang lebih tinggi terhadap murid berkeperluan pelbagai.",
+                en: "A teacher can always develop higher patience and empathy towards diverse student needs."
             },
             {
                 id: 11,
                 type: 'fixed',
                 domain: 'effort',
-                bm: "Mencuba sesuatu yang baru memberi tekanan kepada anda dan ini menyebabkan anda cuba mengelakkannya.",
-                en: "Trying new things is stressful for me and I avoid it."
+                bm: "Mencuba teknologi PdP baharu memberi tekanan kepada saya, jadi saya lebih suka mengelakkannya.",
+                en: "Adopting new edtech tools is stressful for me, so I prefer avoiding them."
             },
             {
                 id: 12,
                 type: 'fixed',
                 domain: 'personality',
-                bm: "Ada sesetengah orang baik dan ikhlas dan ada juga yang sebaliknya. Maka tidak selalulah orang boleh berubah.",
-                en: "Some people are good and kind, and some are not - it's not often that people change."
+                bm: "Gaya kepimpinan dan pengurusan panitia guru adalah perkara yang tetap dan sukar diubah.",
+                en: "A teacher's leadership and department management style are fixed and hard to change."
             },
             {
                 id: 13,
                 type: 'growth',
                 domain: 'effort',
-                bm: "Anda menghargai apabila terdapat individu seperti ibu bapa, jurulatih, guru yang memberi maklum balas berhubung prestasi diri anda.",
-                en: "I appreciate when people, parents, coaches, teachers give me feedback about my performance."
+                bm: "Saya amat menghargai pencerapan PdP dan maklum balas kritikal daripada Pentadbir/SISC+ untuk memajukan diri.",
+                en: "I highly value classroom observations and constructive feedback from Administrators/Coaches to grow."
             },
             {
                 id: 14,
                 type: 'fixed',
                 domain: 'effort',
-                bm: "Anda sering marah apabila mendapat maklum balas mengenai prestasi diri sendiri.",
-                en: "I often get angry when I get feedback about my performance."
+                bm: "Saya rasa tergugat atau berasa marah apabila prestasi PdP saya dikritik oleh rakan sejawat atau pentadbir.",
+                en: "I feel threatened or defensive when my teaching performance is criticized by peers or administration."
             },
             {
                 id: 15,
                 type: 'growth',
                 domain: 'intelligence',
-                bm: "Semua manusia yang tidak mengalami kecederaan otak atau kecacatan kelahiran mampu mempelajari pembelajaran yang sama.",
-                en: "All human beings without a brain injury or birth defect are capable of the same amount of learning."
+                bm: "Keupayaan otak murid untuk mempelajari kemahiran baharu boleh terus berkembang sepanjang hayat melalui latihan berasaskan minda pertumbuhan.",
+                en: "Students' brain capacity to learn new skills can continuously adapt through growth-mindset practice."
             },
             {
                 id: 16,
                 type: 'fixed',
                 domain: 'intelligence',
-                bm: "Anda boleh mempelajari sesuatu yang baru, tetapi anda benar-benar tidak boleh mengubah pemikiran atau kepintaran yang anda miliki.",
-                en: "You can learn new things, but you can't really change how intelligent you are."
+                bm: "Bakat pencapaian murid kebanyakannya bergantung kepada IQ asal mereka, bukan daripada kualiti pengajaran guru.",
+                en: "Student achievement talent relies mostly on their baseline IQ, not on teacher instruction quality."
             },
             {
                 id: 17,
                 type: 'fixed',
                 domain: 'personality',
-                bm: "Anda boleh melakukan banyak perkara dengan cara yang berbeza tetapi bahagian yang penting dalam diri anda tidak boleh diubah.",
-                en: "You can do things differently, but the important parts of who you are can't really be changed."
+                bm: "Walaupun anda belajar teknik PdP baharu, identiti teras anda sebagai guru tidak akan berubah.",
+                en: "Even if you learn new pedagogy techniques, your core identity as a teacher remains static."
             },
             {
                 id: 18,
                 type: 'growth',
                 domain: 'personality',
-                bm: "Manusia pada dasarnya baik tetapi dalam membuat keputusan kadang-kadang amat dahsyat.",
-                en: "Human beings are basically good, but sometimes make terrible decisions."
+                bm: "Murid yang bermasalah tingkah laku masih mampu berubah menjadi positif jika diberikan sokongan dan ruang pembetulan.",
+                en: "Students with behavioral issues can still transform positively if given support and growth opportunities."
             },
             {
                 id: 19,
                 type: 'growth',
                 domain: 'effort',
-                bm: "Satu sebab penting mengapa anda melakukan kerja-kerja sekolah atau urusan pejabat adalah kerana anda suka mempelajari sesuatu yang baru.",
-                en: "An important reason why I do my school work or office affairs is that I like to learn new things."
+                bm: "Sebab utama saya menghadiri bengkel LDP / Pembangunan Profesional adalah kerana saya gemar mempelajari ilmu baharu.",
+                en: "A primary reason I attend professional development workshops is that I love mastering new insights."
             },
             {
                 id: 20,
                 type: 'fixed',
                 domain: 'effort',
-                bm: "Orang yang benar-benar bijak tidak perlu berusaha keras.",
-                en: "Truly smart people do not need to try hard."
+                bm: "Guru yang benar-benar hebat dan berkaliber tidak perlu bekerja keras untuk mendapatkan keputusan PdP yang baik.",
+                en: "Truly exceptional teachers do not need to work hard to get great teaching results."
             }
         ];
 
+        // TRANSLATION DICTIONARIES
         const TRANSLATIONS = {
             bm: {
-                heroTitle: "Ketahui Tahap Pola Fikiran (Mindset) Anda",
-                heroDesc: "Adakah anda percaya kecerdasan dan bakat boleh dibangunkan melalui usaha, atau ia kekal sejak lahir? Ujian ini mengandungi 20 soalan refleksi berasaskan kajian Dr. Carol S. Dweck.",
-                userInfoLabel: "Maklumat Peserta (Pilihan)",
-                lblName: "Nama Peserta / Name",
-                lblDept: "Jabatan / Syarikat / Kelas",
-                lblModeSelect: "Pilih Mod Jawapan:",
-                btnStart: "Mula Ujian Sekarang",
+                heroTitle: "Ujian Pola Fikiran (Mindset) Warga Pendidik",
+                heroDesc: "Adakah anda percaya kebolehan mengajar, kepimpinan pedagogi, dan potensi murid boleh terus berkembang melalui usaha serta strategi, atau ia bersifat tetap? Sila jawab 20 soalan ini secara jujur.",
+                userInfoLabel: "Maklumat Guru",
+                lblName: "Nama Guru",
+                lblModeSelect: "Mod Menjawab:",
+                btnStart: "Mula Soal Selidik",
                 progressText: "Kemajuan: {count} daripada 20 Diselesaikan",
-                toggleModeBtn: "Tukar Mod Pandangan",
+                toggleModeBtn: "Tukar Pandangan",
                 prevBtn: "Sebelumnya",
                 nextBtn: "Seterusnya",
-                mustComplete: "Sila pastikan semua 20 soalan telah dijawab untuk melihat keputusan.",
-                submitBtn: "Hantar & Lihat Keputusan",
-                domainTitle: "Analisis Teras Mengikut Dimensi",
-                recTitle: "Petua Pembangunan Diri & Pelan Tindakan",
-                reviewTitle: "Semak Semula Jawapan Anda (20 Soalan)",
-                printBtn: "Cetak / Simpan PDF",
+                mustComplete: "Sila pastikan semua 20 soalan telah dijawab sebelum menghantar.",
+                submitBtn: "Hantar & Lihat Analisis",
+                domainTitle: "Analisis Mengikut Dimensi Pendidik",
+                recTitle: "Saranan Pembangunan Profesional Guru",
+                reviewTitle: "Semak Semula Jawapan (20 Soalan)",
+                printBtn: "Cetak Keputusan Saya",
                 resetBtn: "Ulang Semula Ujian",
                 options: {
                     SS: "Sangat Setuju",
@@ -598,23 +834,22 @@
                 }
             },
             en: {
-                heroTitle: "Discover Your Mindset Profile",
-                heroDesc: "Do you believe intelligence and talents can be developed through effort, or are they fixed at birth? Take this 20-question quiz based on Dr. Carol S. Dweck's research.",
-                userInfoLabel: "Participant Information (Optional)",
-                lblName: "Participant Name",
-                lblDept: "Department / Company / Class",
-                lblModeSelect: "Select Quiz Layout Mode:",
-                btnStart: "Start Quiz Now",
+                heroTitle: "Educator Mindset Profile Quiz",
+                heroDesc: "Do you believe teaching abilities, pedagogical leadership, and student potential can continuously grow through effort and strategies, or are they fixed? Complete this 20-question reflection.",
+                userInfoLabel: "Teacher Information",
+                lblName: "Teacher Name",
+                lblModeSelect: "Select Quiz Mode:",
+                btnStart: "Start Reflection Quiz",
                 progressText: "Progress: {count} of 20 Completed",
-                toggleModeBtn: "Toggle Layout Mode",
+                toggleModeBtn: "Toggle Layout View",
                 prevBtn: "Previous",
                 nextBtn: "Next",
-                mustComplete: "Please answer all 20 questions before submitting to view your full analysis.",
-                submitBtn: "Submit & View Results",
-                domainTitle: "Domain Breakdown Analysis",
-                recTitle: "Self-Development Tips & Action Steps",
-                reviewTitle: "Review Your Answers (20 Questions)",
-                printBtn: "Print / Save PDF",
+                mustComplete: "Please answer all 20 questions before submitting.",
+                submitBtn: "Submit & View Analytics",
+                domainTitle: "Educator Domain Analysis",
+                recTitle: "Professional Growth Recommendations",
+                reviewTitle: "Review Answers (20 Questions)",
+                printBtn: "Print My Results",
                 resetBtn: "Retake Quiz",
                 options: {
                     SS: "Strongly Agree",
@@ -624,24 +859,23 @@
                 }
             },
             both: {
-                heroTitle: "MINDSET QUIZ / Ujian Pola Fikiran",
-                heroDesc: "Adakah anda percaya kecerdasan dan bakat boleh dibangunkan melalui usaha? / Do you believe intelligence can be developed through effort?",
-                userInfoLabel: "Maklumat Peserta / Participant Info",
-                lblName: "Nama Peserta / Name",
-                lblDept: "Jabatan / Department",
+                heroTitle: "MINDSET PENDIDIK / Educator Mindset",
+                heroDesc: "Adakah anda percaya kebolehan mengajar & potensi murid boleh berkembang? / Do you believe teaching ability can grow?",
+                userInfoLabel: "Maklumat Guru / Teacher Info",
+                lblName: "Nama Guru / Teacher Name",
                 lblModeSelect: "Mod Jawapan / Mode:",
-                btnStart: "Mula Ujian / Start Quiz",
+                btnStart: "Mula Ujian / Start",
                 progressText: "Kemajuan / Progress: {count} / 20",
-                toggleModeBtn: "Tukar Mod / Toggle Mode",
-                prevBtn: "Sebelumnya / Prev",
+                toggleModeBtn: "Tukar Mod / Switch Mode",
+                prevBtn: "Sebelum / Prev",
                 nextBtn: "Seterusnya / Next",
                 mustComplete: "Sila jawab semua 20 soalan / Please complete all 20 questions.",
-                submitBtn: "Hantar & Lihat Keputusan / Submit",
+                submitBtn: "Hantar / Submit",
                 domainTitle: "Analisis Dimensi / Domain Analysis",
-                recTitle: "Petua Pembangunan / Development Tips",
+                recTitle: "Saranan / Recommendations",
                 reviewTitle: "Semak Jawapan / Review Answers",
-                printBtn: "Cetak PDF / Print PDF",
-                resetBtn: "Ulang Ujian / Retake",
+                printBtn: "Cetak / Print",
+                resetBtn: "Ulang / Reset",
                 options: {
                     SS: "Sangat Setuju / Strongly Agree",
                     S: "Setuju / Agree",
@@ -651,21 +885,53 @@
             }
         };
 
-        // APP STATE
-        let currentLang = 'bm'; // 'bm' | 'en' | 'both'
+        // GLOBAL APP STATE
+        let currentLang = 'bm';
         let quizMode = 'wizard'; // 'wizard' | 'list'
         let currentWizardIndex = 0;
         let answers = {}; // { qId: 'SS' | 'S' | 'TS' | 'STS' }
+        let submissions = []; // Saved submissions array
 
         // INITIALIZATION
         window.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            loadStoredSubmissions();
             setLanguage('bm');
             setQuizMode('wizard');
             renderQuickDots();
             renderWizardQuestion();
             renderListQuestions();
         });
+
+        function showView(viewName) {
+            ['intro', 'quiz', 'results', 'coordinator'].forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) {
+                    if (v === viewName) el.classList.remove('hidden');
+                    else el.classList.add('hidden');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (viewName === 'coordinator') {
+                renderCoordTable();
+            }
+        }
+
+        function loadStoredSubmissions() {
+            try {
+                const raw = localStorage.getItem('mindset_quiz_pendidik_db');
+                if (raw) submissions = JSON.parse(raw);
+            } catch (e) {
+                submissions = [];
+            }
+        }
+
+        function saveSubmissionsToStorage() {
+            try {
+                localStorage.setItem('mindset_quiz_pendidik_db', JSON.stringify(submissions));
+            } catch(e) {}
+        }
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -678,13 +944,11 @@
                 }
             });
 
-            // Update Static Strings
             const t = TRANSLATIONS[lang];
             document.getElementById('hero-title').innerText = t.heroTitle;
             document.getElementById('hero-desc').innerText = t.heroDesc;
             document.getElementById('label-user-info').innerText = t.userInfoLabel;
             document.getElementById('lbl-name').innerText = t.lblName;
-            document.getElementById('lbl-dept').innerText = t.lblDept;
             document.getElementById('lbl-mode-select').innerText = t.lblModeSelect;
             document.getElementById('btn-start-text').innerText = t.btnStart;
             document.getElementById('lbl-toggle-mode').innerText = t.toggleModeBtn;
@@ -730,9 +994,15 @@
         }
 
         function startQuiz() {
-            document.getElementById('view-intro').classList.add('hidden');
-            document.getElementById('view-quiz').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const nameInput = document.getElementById('user-name').value.trim();
+            if (!nameInput) {
+                showModal("Perhatian", "Sila masukkan Nama Guru terlebih dahulu sebelum memulakan soalan refleksi.", [
+                    { label: "Faham", class: "bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal }
+                ]);
+                return;
+            }
+
+            showView('quiz');
         }
 
         function renderQuickDots() {
@@ -763,7 +1033,6 @@
             document.getElementById('quiz-percent-text').innerText = `${pct}%`;
             document.getElementById('progress-bar-fill').style.width = `${pct}%`;
 
-            // Update dots status
             for (let i = 1; i <= 20; i++) {
                 const dot = document.getElementById(`dot-${i}`);
                 if (dot) {
@@ -783,7 +1052,7 @@
             const t = TRANSLATIONS[currentLang];
 
             document.getElementById('wiz-q-num').innerText = `Soalan ${q.id} / 20`;
-            document.getElementById('wiz-q-badge').innerText = q.type === 'growth' ? 'Pola Pertumbuhan' : 'Pola Tetap';
+            document.getElementById('wiz-q-type').innerText = q.type === 'growth' ? 'Pola Pertumbuhan' : 'Pola Tetap';
 
             if (currentLang === 'bm') {
                 document.getElementById('wiz-q-text-primary').innerText = q.bm;
@@ -800,10 +1069,10 @@
             optContainer.innerHTML = '';
 
             const opts = [
-                { code: 'SS', label: t.options.SS, color: 'emerald' },
-                { code: 'S', label: t.options.S, color: 'blue' },
-                { code: 'TS', label: t.options.TS, color: 'amber' },
-                { code: 'STS', label: t.options.STS, color: 'rose' }
+                { code: 'SS', label: t.options.SS, pts: q.type === 'growth' ? 3 : 0 },
+                { code: 'S', label: t.options.S, pts: q.type === 'growth' ? 2 : 1 },
+                { code: 'TS', label: t.options.TS, pts: q.type === 'growth' ? 1 : 2 },
+                { code: 'STS', label: t.options.STS, pts: q.type === 'growth' ? 0 : 3 }
             ];
 
             opts.forEach(opt => {
@@ -819,7 +1088,7 @@
 
                 btn.innerHTML = `
                     <div class="flex items-center gap-3">
-                        <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
+                        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
                             isSelected ? 'bg-brand-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
                         }">${opt.code}</span>
                         <span>${opt.label}</span>
@@ -829,7 +1098,6 @@
                 optContainer.appendChild(btn);
             });
 
-            // Prev / Next button states
             document.getElementById('wiz-prev-btn').disabled = currentWizardIndex === 0;
             const nextBtn = document.getElementById('wiz-next-btn');
             if (currentWizardIndex === 19) {
@@ -854,7 +1122,6 @@
                 currentWizardIndex++;
                 renderWizardQuestion();
             } else {
-                // Scroll to submit
                 document.getElementById('submit-section').scrollIntoView({ behavior: 'smooth' });
             }
         }
@@ -865,13 +1132,12 @@
 
             if (isWizard) {
                 renderWizardQuestion();
-                // Auto advance wizard with slight delay if not at end
                 setTimeout(() => {
                     if (currentWizardIndex < 19) {
                         currentWizardIndex++;
                         renderWizardQuestion();
                     }
-                }, 250);
+                }, 200);
             } else {
                 renderListQuestions();
             }
@@ -929,10 +1195,8 @@
         }
 
         function calculateAndShowResults() {
-            // Check if all 20 questions answered
             const answeredCount = Object.keys(answers).length;
             if (answeredCount < 20) {
-                // Highlight first unanswered question
                 for (let i = 1; i <= 20; i++) {
                     if (!answers[i]) {
                         if (quizMode === 'wizard') {
@@ -945,30 +1209,27 @@
                         break;
                     }
                 }
-                
-                // Show gentle toast notice
-                showToast("Sila lengkapkan semua 20 soalan sebelum menghantar.");
+                showModal("Soalan Belum Lengkap", "Sila jawab kesemua 20 soalan sebelum menghantar.", [
+                    { label: "Faham", class: "bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal }
+                ]);
                 return;
             }
 
-            // Calculate total score & domain scores
+            // Calculation
             let totalScore = 0;
-            let d1Score = 0; // Intelligence (Max 12? Wait: Q1,2,3,15,16 -> 5 questions = 15 max)
-            let d2Score = 0; // Personality (Q4,5,10,12,17,18 -> 6 questions = 18 max)
-            let d3Score = 0; // Effort & Feedback (Q6,7,8,9,11,13,14,19,20 -> 9 questions = 27 max)
+            let d1Score = 0; // Intelligence (Q1,2,3,15,16 -> 15 max)
+            let d2Score = 0; // Personality (Q4,5,10,12,17,18 -> 18 max)
+            let d3Score = 0; // Effort & Feedback (Q6,7,8,9,11,13,14,19,20 -> 27 max)
 
             QUESTIONS.forEach(q => {
                 const val = answers[q.id];
                 let pts = 0;
-
                 if (q.type === 'growth') {
-                    // SS=3, S=2, TS=1, STS=0
                     if (val === 'SS') pts = 3;
                     else if (val === 'S') pts = 2;
                     else if (val === 'TS') pts = 1;
                     else if (val === 'STS') pts = 0;
                 } else {
-                    // Fixed: SS=0, S=1, TS=2, STS=3
                     if (val === 'SS') pts = 0;
                     else if (val === 'S') pts = 1;
                     else if (val === 'TS') pts = 2;
@@ -976,77 +1237,65 @@
                 }
 
                 totalScore += pts;
-
                 if (q.domain === 'intelligence') d1Score += pts;
                 else if (q.domain === 'personality') d2Score += pts;
                 else if (q.domain === 'effort') d3Score += pts;
             });
 
-            // Display Results
-            document.getElementById('view-quiz').classList.add('hidden');
-            document.getElementById('view-results').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // User meta display
-            const uName = document.getElementById('user-name').value.trim() || 'Peserta';
-            const uDept = document.getElementById('user-dept').value.trim() || 'Umum';
-            const dateStr = new Date().toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
-
-            document.getElementById('out-name').innerText = uName;
-            document.getElementById('out-dept').innerText = uDept;
-            document.getElementById('out-date').innerText = dateStr;
-
-            document.getElementById('print-user-name').innerText = `Nama: ${uName}`;
-            document.getElementById('print-user-dept').innerText = `Jabatan: ${uDept}`;
-            document.getElementById('print-date').innerText = `Tarikh: ${dateStr}`;
-
-            // Score Gauge Animation
-            document.getElementById('score-num').innerText = totalScore;
-            const ring = document.getElementById('score-ring');
-            const maxOffset = 314.15;
-            const offset = maxOffset - (totalScore / 60) * maxOffset;
-            ring.style.strokeDashoffset = offset;
-
             // Categorization
-            let categoryKey = '';
+            let kategori = '';
             let catBadge = '';
             let catTitle = '';
             let catDesc = '';
             let strokeColor = '';
 
             if (totalScore >= 45) {
-                categoryKey = 'strong_growth';
+                kategori = "Minda Pertumbuhan Kukuh (Strong Growth Mindset)";
                 catBadge = 'bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950 dark:text-emerald-200';
-                strokeColor = '#10b981'; // emerald-500
-                catTitle = "Pola Fikiran Pertumbuhan Teguh (Strong Growth Mindset)";
-                catDesc = "Anda percaya bahawa kebolehan, kecerdasan, dan bakat boleh dikembangkan secara berterusan melalui usaha gigih, strategi pembelajaran yang betul, serta maklum balas membina. Anda melihat cabaran sebagai peluang untuk berkembang!";
-                
-                // Confetti celebration
-                try { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); } catch(e){}
+                strokeColor = '#10b981';
+                catTitle = "Minda Pertumbuhan Kukuh";
+                catDesc = "Sebagai pendidik, anda percaya penuh bahawa bakat, kemahiran PdP, dan kepintaran murid boleh sentiasa ditingkatkan melalui usaha gigih, strategi kreatif, dan refleksi berterusan.";
+                try { confetti({ particleCount: 90, spread: 60, origin: { y: 0.6 } }); } catch(e){}
 
             } else if (totalScore >= 34) {
-                categoryKey = 'growth_fixed_ideas';
+                kategori = "Minda Pertumbuhan dengan Kecenderungan Minda Tetap (Growth Mindset with Fixed Ideas)";
                 catBadge = 'bg-blue-100 text-blue-800 border border-blue-300 dark:bg-blue-950 dark:text-blue-200';
-                strokeColor = '#3b82f6'; // blue-500
-                catTitle = "Pola Fikiran Pertumbuhan dengan Unsur Tetap";
-                catDesc = "Secara umumnya anda mempunyai kecenderungan minda pertumbuhan. Walau bagaimanapun, dalam situasi tertentu (seperti kegagalan mengejut atau cabaran yang sangat sukar), anda mungkin masih terperangkap dalam tanggapan bahawa bakat asal adalah penentu utama.";
+                strokeColor = '#3b82f6';
+                catTitle = "Minda Pertumbuhan dengan Kecenderungan Minda Tetap";
+                catDesc = "Secara umumnya anda berorientasikan minda pertumbuhan. Walau bagaimanapun, dalam situasi tekanan tinggi (seperti perubahan kurikulum atau cabaran kawalan disiplin), anda mungkin masih mempunyai sedikit tanggapan fikiran tetap.";
 
             } else if (totalScore >= 21) {
-                categoryKey = 'fixed_growth_ideas';
+                kategori = "Minda Tetap dengan Kecenderungan Minda Pertumbuhan (Fixed Mindset with Growth Ideas)";
                 catBadge = 'bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-950 dark:text-amber-200';
-                strokeColor = '#f59e0b'; // amber-500
-                catTitle = "Pola Fikiran Tetap dengan Unsur Pertumbuhan";
-                catDesc = "Anda cenderung percaya bahawa kepintaran dan bakat adalah sesuatu yang kekal. Anda mungkin agak berhati-hati untuk mencuba perkara baharu kerana takut kelihatan gagal. Namun, anda masih mempunyai sedikit kesedaran bahawa latihan boleh membantu.";
+                strokeColor = '#f59e0b';
+                catTitle = "Minda Tetap dengan Kecenderungan Minda Pertumbuhan";
+                catDesc = "Anda cenderung melihat bakat atau kebolehan murid sebagai sesuatu yang semula jadi dan sukar diubah. Namun, anda masih mempunyai potensi kesedaran untuk menerima kaedah PdP baharu.";
 
             } else {
-                categoryKey = 'strong_fixed';
+                kategori = "Minda Tetap Kukuh (Strong Fixed Mindset)";
                 catBadge = 'bg-rose-100 text-rose-800 border border-rose-300 dark:bg-rose-950 dark:text-rose-200';
-                strokeColor = '#f43f5e'; // rose-500
-                catTitle = "Pola Fikiran Tetap Teguh (Strong Fixed Mindset)";
-                catDesc = "Anda mempunyai kepercayaan yang kuat bahawa bakat dan kepintaran adalah semula jadi dan tidak boleh diubah. Anda mungkin kerap mengelak daripada cabaran dan berasa terancam dengan maklum balas kritikal.";
+                strokeColor = '#f43f5e';
+                catTitle = "Minda Tetap Kukuh";
+                catDesc = "Anda berpegang kuat bahawa kebolehan akademik murid dan kecekapan mengajar adalah tetap sejak lahir. Anda mungkin berasa agak kurang bersedia menerima teguran atau mencuba inovasi PdP baharu.";
             }
 
+            // Display Results View
+            showView('results');
+
+            const uName = document.getElementById('user-name').value.trim() || 'Cikgu (Tanpa Nama)';
+            const dateStr = new Date().toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            document.getElementById('out-name').innerText = uName;
+            document.getElementById('out-date').innerText = dateStr;
+
+            // Score Gauge
+            document.getElementById('score-num').innerText = totalScore;
+            const ring = document.getElementById('score-ring');
+            const maxOffset = 314.15;
+            const offset = maxOffset - (totalScore / 60) * maxOffset;
+            ring.style.strokeDashoffset = offset;
             ring.style.stroke = strokeColor;
+
             const badgeEl = document.getElementById('badge-category');
             badgeEl.className = `inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm ${catBadge}`;
             badgeEl.innerText = `${totalScore} / 60 MARKAH`;
@@ -1054,58 +1303,106 @@
             document.getElementById('result-title').innerText = catTitle;
             document.getElementById('result-desc').innerText = catDesc;
 
-            // Domain 1: Intelligence (Max 15)
+            // Domain Scores
             document.getElementById('d1-score').innerText = `${d1Score} / 15`;
             document.getElementById('d1-bar').style.width = `${(d1Score / 15) * 100}%`;
             document.getElementById('d1-desc').innerText = d1Score >= 11 
-                ? "Pandangan sangat terbuka mengenai potensi otak & kecerdasan." 
-                : "Cenderung melihat tahap kepintaran sebagai sesuatu yang tetap.";
+                ? "Keyakinan tinggi terhadap potensi kecerdasan otak murid." 
+                : "Tanggapan bahawa kepintaran murid adalah terhad/tetap.";
 
-            // Domain 2: Personality (Max 18)
             document.getElementById('d2-score').innerText = `${d2Score} / 18`;
             document.getElementById('d2-bar').style.width = `${(d2Score / 18) * 100}%`;
             document.getElementById('d2-desc').innerText = d2Score >= 13 
-                ? "Yakin personaliti dan watak diri mampu berkembang." 
-                : "Percaya sifat personaliti adalah sukar untuk diubah.";
+                ? "Kepercayaan bahawa watak & kualiti pendidik boleh terus diasah." 
+                : "Melihat gaya mengajar sebagai sifat perwatakan yang kekal.";
 
-            // Domain 3: Effort & Feedback (Max 27)
             document.getElementById('d3-score').innerText = `${d3Score} / 27`;
             document.getElementById('d3-bar').style.width = `${(d3Score / 27) * 100}%`;
             document.getElementById('d3-desc').innerText = d3Score >= 20 
-                ? "Menghargai usaha gigih dan menerima teguran membina." 
-                : "Melihat usaha sebagai tanda ketidakupayaan atau alahan kepada kritik.";
+                ? "Terbuka kepada pencerapan PdP, latihan LDP, dan inovasi." 
+                : "Cenderung mengelak cabaran teknologi/inovasi baharu.";
 
-            // Render Actionable Tips
-            renderActionTips(totalScore);
-
-            // Render Review Answers Table
+            renderActionTips();
             renderReviewAnswers();
+
+            // Store locally
+            const record = {
+                id: Date.now(),
+                nama: uName,
+                skor: totalScore,
+                kategori: kategori,
+                date: new Date().toLocaleDateString('ms-MY')
+            };
+            submissions.push(record);
+            saveSubmissionsToStorage();
+
+            // Mandatory Fetch Call to Google Script
+            sendDataToGoogleSheets(uName, totalScore, kategori);
         }
 
-        function renderActionTips(score) {
+        function sendDataToGoogleSheets(nama, skor, kategori) {
+            const statusCard = document.getElementById('sync-status-card');
+            const statusText = document.getElementById('sync-status-text');
+            const spinner = document.getElementById('sync-spinner');
+            const checkIcon = document.getElementById('sync-check');
+
+            statusCard.className = "p-4 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 flex items-center justify-between gap-3 text-xs";
+            spinner.classList.remove('hidden');
+            checkIcon.classList.add('hidden');
+            statusText.innerText = "Menghantar data ke Google Sheets...";
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nama: nama,
+                    skor: skor,
+                    kategori: kategori
+                })
+            })
+            .then(() => {
+                setTimeout(() => {
+                    statusCard.className = "p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 flex items-center justify-between gap-3 text-xs";
+                    spinner.classList.add('hidden');
+                    checkIcon.classList.remove('hidden');
+                    statusText.innerText = "✓ Data Berjaya Dihantar ke Google Sheets Sekolah!";
+                }, 800);
+            })
+            .catch(err => {
+                statusCard.className = "p-4 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 flex items-center justify-between gap-3 text-xs";
+                spinner.classList.add('hidden');
+                checkIcon.classList.remove('hidden');
+                statusText.innerText = "✓ Data Disimpan Secara Tempatan (Rekod Luar Talian).";
+            });
+        }
+
+        function renderActionTips() {
             const container = document.getElementById('rec-list');
             container.innerHTML = '';
 
             const tips = [
                 {
-                    icon: 'refresh-cw',
-                    title: "Ubah Dialog Dalaman (Self-Talk)",
-                    desc: "Gantikan perkataan 'Saya tak boleh buat' kepada 'Saya belum boleh buat LAGI'."
+                    icon: 'messages-square',
+                    title: "Gunakan Kuasa Bahasa 'BELUM' (Yet)",
+                    desc: "Ubah ayat 'Murid ini tidak boleh menguasai' kepada 'Murid ini BELUM menguasai tajuk ini'."
                 },
                 {
-                    icon: 'flame',
-                    title: "Hargai Proses & Usaha",
-                    desc: "Fokus kepada strategi, ketabahan, dan latihan berbanding hanya hasil akhir."
+                    icon: 'lightbulb',
+                    title: "Pujian Terhadap Proses (Process Praise)",
+                    desc: "Puji usaha, strategi dan ketabahan murid dan bukannya memuji kepintaran semula jadi mereka."
                 },
                 {
-                    icon: 'message-square',
-                    title: "Sambut Maklum Balas",
-                    desc: "Lihat teguran dan kritikan sebagai hadiah navigasi untuk penambahbaikan diri."
+                    icon: 'search-code',
+                    title: "Pencerapan Sebagai Rakan Bimbingan",
+                    desc: "Lihat maklum balas pencerapan PdP sebagai peluang menambah baik pedagogi bilik darjah."
                 },
                 {
-                    icon: 'target',
-                    title: "Ambil Cabaran Baharu",
-                    desc: "Pilih tugas yang mencabar zon selesa anda bagi membina sambungan sinaps otak yang baharu."
+                    icon: 'rocket',
+                    title: "Eksperimen Teknik PdP Inovatif",
+                    desc: "Luaskan zon selesa dengan mencuba alatan digital baharu bagi menyokong pelbagai aras murid."
                 }
             ];
 
@@ -1131,17 +1428,15 @@
             const container = document.getElementById('review-content');
             container.innerHTML = '';
 
-            const table = document.createElement('div');
-            table.className = "overflow-x-auto";
-            
             let html = `
+                <div class="overflow-x-auto">
                 <table class="w-full text-xs text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700">
                             <th class="p-2.5 font-bold">No.</th>
-                            <th class="p-2.5 font-bold">Pernyataan Soalan</th>
+                            <th class="p-2.5 font-bold">Pernyataan Soalan Pendidik</th>
                             <th class="p-2.5 font-bold text-center">Jawapan Anda</th>
-                            <th class="p-2.5 font-bold text-center">Pola Soalan</th>
+                            <th class="p-2.5 font-bold text-center">Pola</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
@@ -1156,7 +1451,7 @@
                         <td class="p-2.5 font-extrabold text-brand-600">${q.id}</td>
                         <td class="p-2.5">
                             <p class="font-medium text-slate-900 dark:text-slate-200">${q.bm}</p>
-                            <p class="text-slate-400 italic">${q.en}</p>
+                            <p class="text-slate-400 italic text-[11px]">${q.en}</p>
                         </td>
                         <td class="p-2.5 text-center font-extrabold">
                             <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">${userAns}</span>
@@ -1170,9 +1465,8 @@
                 `;
             });
 
-            html += `</tbody></table>`;
-            table.innerHTML = html;
-            container.appendChild(table);
+            html += `</tbody></table></div>`;
+            container.innerHTML = html;
         }
 
         function toggleReviewSection() {
@@ -1190,26 +1484,286 @@
         function resetQuiz() {
             answers = {};
             currentWizardIndex = 0;
-            document.getElementById('view-results').classList.add('hidden');
-            document.getElementById('view-intro').classList.remove('hidden');
+            showView('intro');
             updateProgressUI();
             renderWizardQuestion();
             renderListQuestions();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function showToast(msg) {
-            const toast = document.createElement('div');
-            toast.className = "fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs font-bold flex items-center gap-2 border border-slate-700 transition-all transform translate-y-0 opacity-100";
-            toast.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-400"></i> <span>${msg}</span>`;
-            document.body.appendChild(toast);
-            lucide.createIcons();
+        function renderCoordTable() {
+            const tbody = document.getElementById('coord-table-body');
+            const search = document.getElementById('coord-search').value.toLowerCase();
+            tbody.innerHTML = '';
 
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(10px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            const filtered = submissions.filter(s => s.nama.toLowerCase().includes(search));
+
+            // Stats calculation
+            const total = submissions.length;
+            let c1 = 0, c2 = 0, c3 = 0, c4 = 0;
+            let totalSum = 0;
+
+            submissions.forEach(s => {
+                totalSum += s.skor;
+                if (s.skor >= 45) c1++;
+                else if (s.skor >= 34) c2++;
+                else if (s.skor >= 21) c3++;
+                else c4++;
+            });
+
+            const growthTotal = c1 + c2;
+            const fixedTotal = c3 + c4;
+
+            const growthPct = total > 0 ? Math.round((growthTotal / total) * 100) : 0;
+            const fixedPct = total > 0 ? Math.round((fixedTotal / total) * 100) : 0;
+            const avgScore = total > 0 ? (totalSum / total).toFixed(1) : '0';
+
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-growth-pct').innerText = `${growthPct}%`;
+            document.getElementById('stat-growth-count').innerText = `${growthTotal} guru (Skor >= 34)`;
+            document.getElementById('stat-fixed-pct').innerText = `${fixedPct}%`;
+            document.getElementById('stat-fixed-count').innerText = `${fixedTotal} guru (Skor < 34)`;
+            document.getElementById('stat-avg').innerText = `${avgScore} / 60`;
+
+            // Bar chart width percentages
+            document.getElementById('bar-cat-1').style.width = total > 0 ? `${(c1 / total) * 100}%` : '0%';
+            document.getElementById('bar-cat-2').style.width = total > 0 ? `${(c2 / total) * 100}%` : '0%';
+            document.getElementById('bar-cat-3').style.width = total > 0 ? `${(c3 / total) * 100}%` : '0%';
+            document.getElementById('bar-cat-4').style.width = total > 0 ? `${(c4 / total) * 100}%` : '0%';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="p-8 text-center text-slate-400">
+                            Tiada rekod guru ditemui. Sila lengkapkan ujian atau tekan "Demo Data".
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filtered.forEach((item, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 dark:hover:bg-slate-800/50 transition";
+                
+                let badgeClass = "bg-slate-100 text-slate-800";
+                if (item.skor >= 45) badgeClass = "bg-emerald-100 text-emerald-800 font-bold";
+                else if (item.skor >= 34) badgeClass = "bg-blue-100 text-blue-800 font-bold";
+                else if (item.skor >= 21) badgeClass = "bg-amber-100 text-amber-800 font-bold";
+                else badgeClass = "bg-rose-100 text-rose-800 font-bold";
+
+                tr.innerHTML = `
+                    <td class="p-3 text-slate-400 font-bold">${idx + 1}</td>
+                    <td class="p-3 font-bold text-slate-900 dark:text-white">${item.nama}</td>
+                    <td class="p-3 text-center font-extrabold text-brand-600 dark:text-brand-400">${item.skor}</td>
+                    <td class="p-3">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] ${badgeClass}">${item.kategori}</span>
+                    </td>
+                    <td class="p-3 text-slate-500">${item.date}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="deleteSingleRecord(${item.id})" class="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/50 transition" title="Padam Rekod">
+                            <i data-lucide="trash" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            lucide.createIcons();
+        }
+
+        function addSampleData() {
+            const samples = [
+                { id: Date.now() + 1, nama: "Cikgu Aminah Binti Hassan", skor: 52, kategori: "Minda Pertumbuhan Kukuh (Strong Growth Mindset)", date: new Date().toLocaleDateString('ms-MY') },
+                { id: Date.now() + 2, nama: "Cikgu Robert Tan", skor: 41, kategori: "Minda Pertumbuhan dengan Kecenderungan Minda Tetap (Growth Mindset with Fixed Ideas)", date: new Date().toLocaleDateString('ms-MY') },
+                { id: Date.now() + 3, nama: "Cikgu Faridah Binti Ismail", skor: 28, kategori: "Minda Tetap dengan Kecenderungan Minda Pertumbuhan (Fixed Mindset with Growth Ideas)", date: new Date().toLocaleDateString('ms-MY') },
+                { id: Date.now() + 4, nama: "Cikgu Muthusamy A/L Gopal", skor: 48, kategori: "Minda Pertumbuhan Kukuh (Strong Growth Mindset)", date: new Date().toLocaleDateString('ms-MY') }
+            ];
+
+            submissions = submissions.concat(samples);
+            saveSubmissionsToStorage();
+            renderCoordTable();
+        }
+
+        function deleteSingleRecord(id) {
+            showModal("Padam Rekod", "Adakah anda pasti untuk memadam rekod guru ini?", [
+                { label: "Batal", class: "bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal },
+                { label: "Ya, Padam", class: "bg-rose-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: () => {
+                    submissions = submissions.filter(s => s.id !== id);
+                    saveSubmissionsToStorage();
+                    renderCoordTable();
+                    closeModal();
+                }}
+            ]);
+        }
+
+        function confirmClearData() {
+            showModal("Padam Semua Data", "PERHATIAN: Ini akan memadam semua rekod tempatan dalam papan pemuka ini. Adakah anda pasti?", [
+                { label: "Batal", class: "bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal },
+                { label: "Padam Keseluruhan", class: "bg-rose-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: () => {
+                    submissions = [];
+                    saveSubmissionsToStorage();
+                    renderCoordTable();
+                    closeModal();
+                }}
+            ]);
+        }
+
+        function exportDataJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(submissions, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `Analisis_Mindset_Guru_${Date.now()}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function exportDataCSV() {
+            if (submissions.length === 0) {
+                showModal("Tiada Data", "Tiada rekod untuk dieksport.", [
+                    { label: "OK", class: "bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal }
+                ]);
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,ID,Nama Guru,Skor,Kategori,Tarikh\n";
+            submissions.forEach(s => {
+                const cleanName = `"${s.nama.replace(/"/g, '""')}"`;
+                const cleanCat = `"${s.kategori.replace(/"/g, '""')}"`;
+                csvContent += `${s.id},${cleanName},${s.skor},${cleanCat},${s.date}\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', `Laporan_Mindset_Guru_${Date.now()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
+
+        function importDataFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const content = e.target.result;
+                    if (file.name.endsWith('.json')) {
+                        const parsed = JSON.parse(content);
+                        if (Array.isArray(parsed)) {
+                            submissions = submissions.concat(parsed);
+                            saveSubmissionsToStorage();
+                            renderCoordTable();
+                            showModal("Berjaya", `${parsed.length} rekod JSON berjaya diimport!`, [
+                                { label: "OK", class: "bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal }
+                            ]);
+                        }
+                    } else if (file.name.endsWith('.csv')) {
+                        const lines = content.split('\n');
+                        let count = 0;
+                        for (let i = 1; i < lines.length; i++) {
+                            if (!lines[i].trim()) continue;
+                            const parts = lines[i].split(',');
+                            if (parts.length >= 4) {
+                                submissions.push({
+                                    id: Date.now() + i,
+                                    nama: parts[1].replace(/"/g, '').trim(),
+                                    skor: parseInt(parts[2]) || 0,
+                                    kategori: parts[3].replace(/"/g, '').trim(),
+                                    date: parts[4] ? parts[4].trim() : new Date().toLocaleDateString('ms-MY')
+                                });
+                                count++;
+                            }
+                        }
+                        saveSubmissionsToStorage();
+                        renderCoordTable();
+                        showModal("Berjaya", `${count} rekod CSV berjaya diimport!`, [
+                            { label: "OK", class: "bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal }
+                        ]);
+                    }
+                } catch(err) {
+                    showModal("Ralat", "Format fail tidak sah.", [
+                        { label: "OK", class: "bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold", onClick: closeModal }
+                    ]);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function printOfficialReport() {
+            const total = submissions.length;
+            let c1 = 0, c2 = 0, c3 = 0, c4 = 0;
+
+            submissions.forEach(s => {
+                if (s.skor >= 45) c1++;
+                else if (s.skor >= 34) c2++;
+                else if (s.skor >= 21) c3++;
+                else c4++;
+            });
+
+            document.getElementById('rpt-print-date').innerText = new Date().toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('rpt-total-teachers').innerText = total;
+
+            document.getElementById('rpt-c1-count').innerText = c1;
+            document.getElementById('rpt-c1-pct').innerText = total > 0 ? `${Math.round((c1/total)*100)}%` : '0%';
+
+            document.getElementById('rpt-c2-count').innerText = c2;
+            document.getElementById('rpt-c2-pct').innerText = total > 0 ? `${Math.round((c2/total)*100)}%` : '0%';
+
+            document.getElementById('rpt-c3-count').innerText = c3;
+            document.getElementById('rpt-c3-pct').innerText = total > 0 ? `${Math.round((c3/total)*100)}%` : '0%';
+
+            document.getElementById('rpt-c4-count').innerText = c4;
+            document.getElementById('rpt-c4-pct').innerText = total > 0 ? `${Math.round((c4/total)*100)}%` : '0%';
+
+            document.getElementById('rpt-total-sum').innerText = total;
+
+            // Populate Report Table
+            const tbody = document.getElementById('rpt-teachers-tbody');
+            tbody.innerHTML = '';
+
+            if (submissions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center italic text-slate-400">Tiada rekod guru berdaftar.</td></tr>`;
+            } else {
+                submissions.forEach((item, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="p-2 border-r text-center">${idx + 1}</td>
+                        <td class="p-2 border-r font-bold">${item.nama}</td>
+                        <td class="p-2 border-r text-center font-bold">${item.skor}</td>
+                        <td class="p-2 border-r">${item.kategori}</td>
+                        <td class="p-2 text-center">${item.date}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            window.print();
+        }
+
+        // Custom Modal Controller
+        function showModal(title, message, actions = []) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            
+            const actionsContainer = document.getElementById('modal-actions');
+            actionsContainer.innerHTML = '';
+
+            actions.forEach(act => {
+                const btn = document.createElement('button');
+                btn.className = act.class || "px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 text-slate-800";
+                btn.innerText = act.label;
+                btn.onclick = act.onClick || closeModal;
+                actionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
         }
     </script>
 </body>
